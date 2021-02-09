@@ -41,9 +41,9 @@ namespace Tisdagsuppg
                 connection.Open();
                 using (var cmd = new SqlCommand(sql, connection))
                 {
-                    foreach (var parameter in parameters)
+                    foreach (var item in parameters)
                     {
-                        cmd.Parameters.AddWithValue(parameter.Item1, parameter.Item2);
+                        cmd.Parameters.AddWithValue(item.Item1, item.Item2);
                     }
 
                     using (var adapter = new SqlDataAdapter(cmd))
@@ -78,10 +78,52 @@ namespace Tisdagsuppg
             return list;
         }
 
-        public void CreateDatabase(string databaseName)
+        /// <summary>
+        /// Creates a database with the provided string as Database name
+        /// </summary>
+        /// <param name="databaseName">Provide the name for the database name</param>
+        /// <returns>Returns true if database was created successfully, or else returns false </returns>
+        public bool CreateDatabase(string databaseName)
         {
+            try
+            {
+                var sql = $"CREATE DATABASE {databaseName}";
+                ExecuteSQL(sql);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
-            var sql = $"CREATE DATABASE {databaseName}";
+
+        public void CreateTable(string table, string fields)
+        {
+            var sql = $"CREATE TABLE {table} ({fields})";
+            ExecuteSQL(sql);
+        }
+
+        public void AlterTable(string table, string field)
+        {
+            var sql = $"ALTER TABLE {table} {field}";
+            ExecuteSQL(sql);
+
+
+        }
+
+
+        public void RenameColumn(string table, string old_column, string new_column)
+        {
+            var sql = $"EXEC sp_rename '{table}.{old_column}', '{new_column}'";
+            ExecuteSQL(sql);
+        }
+
+        public void DropDatabase(string databaseName)
+        {
+            DatabaseName = "master";
+            ExecuteSQL($"ALTER DATABASE [{databaseName}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE");
+            var sql = $"DROP DATABASE [{databaseName}]";
             ExecuteSQL(sql);
         }
     }

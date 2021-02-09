@@ -13,8 +13,11 @@ namespace Tisdagsuppg
             //Uppgift7.Run2();
             //Uppgift7.Run3();
             //Uppgift7.Run4();
-            var db = new SQLDatabase();
-            db.CreateDatabase("'OR DROP TABLE ANIMAL'");
+            //var db = new SQLDatabase();
+            //db.CreateDatabase("Animals");
+            //Uppgift7.RunCreateTable();
+            //Uppgift7.ChangeColumnName();
+            //Uppgift7.DropDatabase();
             Console.ReadKey();
         }
     }

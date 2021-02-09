@@ -9,7 +9,7 @@ namespace Tisdagsuppg
         {
             Console.Write("Ange databasens namn: ");
             var dataBase = new SQLDatabase(Console.ReadLine());
-            var sql = "SELECT * FROM People WHERE Age > @age1 AND Age < @age2";
+            var sql = @"SELECT * FROM People WHERE Age > @age1 AND Age < @age2";
             Console.WriteLine("Ange åldrar:");
             var age1 = Console.ReadLine();
             var age2 = Console.ReadLine();

@@ -5,7 +5,7 @@
         public static void Run()
         {
             var db = new SQLDatabase();
-            var sql = "CREATE DATABASE Humans";
+            var sql = "CREATE DATABASE FamilyTree";
             db.ExecuteSQL(sql);
         }
 
@@ -36,5 +36,30 @@
             var sql = "ALTER TABLE People DROP COLUMN ShoeSize";
             db.ExecuteSQL(sql);
         }
+
+        public static void RunCreateTable()
+        {
+
+            var db = new SQLDatabase("Animals");
+            var sql = "Id int PRIMARY KEY IDENTITY (1,1), Name nvarchar(50), Barksound nvarchar(50)";
+            db.CreateTable("Dogs", sql);
+        }
+
+        public static void ChangeColumnName()
+        {
+
+            var db = new SQLDatabase("Animals");
+            var sql = "Id int PRIMARY KEY IDENTITY (1,1), Name nvarchar(50), Barksound nvarchar(50)";
+            db.RenameColumn("Dogs", "Barksound", "Voffsound");
+        }
+
+        public static void DropDatabase()
+        {
+
+            var db = new SQLDatabase();
+            db.DropDatabase("Animals");
+        }
+
+
     }
 }
